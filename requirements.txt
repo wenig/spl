@@ -1,0 +1,6 @@
+torch
+scipy
+tqdm
+mlxtend
+matplotlib
+celluloid
