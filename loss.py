@@ -7,7 +7,7 @@ class SPLLoss(nn.NLLLoss):
     def __init__(self, *args, n_samples=0, **kwargs):
         super(SPLLoss, self).__init__(*args, **kwargs)
         self.threshold = 0.1
-        self.growing_factor = 1.3
+        self.growing_factor = 1.35
         self.v = torch.zeros(n_samples).int()
 
     def forward(self, input: Tensor, target: Tensor, index: Tensor) -> Tensor:

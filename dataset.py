@@ -27,10 +27,17 @@ def make_classfication(n=10000, centroids=((0,0), (3,3))):
     return X, y
 
 
+def add_anomaly(X, y):
+    swap_id = np.linalg.norm(X.numpy() - np.array((3, 3)), axis=1).argmax()
+    y[swap_id] = np.abs(y[swap_id]-1)
+    print(f"Anomaly at {swap_id}")
+    return torch.Tensor(X), y
+
+
 class MyDataset(Dataset):
     def __init__(self):
         super(MyDataset, self).__init__()
-        self.X, self.y = make_classfication()
+        self.X, self.y = add_anomaly(*make_classfication())
         print(self.X.shape)
 
     def __iter__(self):
