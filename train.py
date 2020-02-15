@@ -1,6 +1,8 @@
+import torch
 import torch.optim as optim
 import numpy as np
 import tqdm
+import random
 
 from mlxtend.plotting import plot_decision_regions
 import matplotlib.pyplot as plt
@@ -15,7 +17,16 @@ fig = plt.figure()
 camera = Camera(fig)
 
 
+def setup():
+    seed = 1445
+    torch.random.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+
+
 def train():
+    setup()
+
     model = Model(2, 2)
     dataloader = get_dataloader()
     criterion = SPLLoss(n_samples=len(dataloader.dataset))
@@ -36,6 +47,8 @@ def train():
 
 
 def find_anomaly():
+    setup()
+
     model = Model(2, 2)
     dataloader = get_dataloader()
     criterion = SPLLoss(n_samples=len(dataloader.dataset))
